@@ -17,7 +17,7 @@ export const verifyToken = (req, res, next) => {
     );
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
     if (err) {
       return next(
         createError(
@@ -28,7 +28,7 @@ export const verifyToken = (req, res, next) => {
     }
     req.user = user;
 
-    next(); // Go to /checkauthentication route
+    next();
   });
 };
 
