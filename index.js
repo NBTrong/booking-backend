@@ -16,7 +16,7 @@ dotenv.config();
 
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect("mongodb+srv://nbtrong:Batrong123@nbtrongcluster.913rfcz.mongodb.net/?retryWrites=true&w=majority");
     console.log('Connected to MongoDB!');
   } catch (error) {
     throw error;
@@ -38,6 +38,9 @@ app.use('/api/rooms', roomsRoute);
 app.use('/api/hotels', hotelsRoute);
 app.use('/api/forms', formsRoute);
 app.use('/api/cities', citiesRoute);
+app.use('/test', function (req, res) {
+  res.status(200).json("Connect server successfully");
+})
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -50,8 +53,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   connect();
-  console.log('Connected to backend.');
+  console.log('Connected to backend port', port);
 });
